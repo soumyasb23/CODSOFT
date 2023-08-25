@@ -4,3 +4,4 @@ This is a java program that generates a random number within the range 1 to 100 
  
 **WordCounter :**
 This is a java program that counts the number of words in the entered text or from a file selected. It prompts user to enter a text or path of the file and returns the number of words in it.
+It also displays the unique words and number of times a word is repeated 
