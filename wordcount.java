@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.*;
-public class wordcount {
+
+public class WordCount {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -30,8 +32,29 @@ public class wordcount {
             System.exit(1);
         }
 
-        int wordCount = countWords(text);
-        System.out.println("Total words: " + wordCount);
+        String[] words = text.split("[\\s\\p{Punct}]+");
+        List<String> ignoredWords = Arrays.asList("the", "and", "is", "of"); // Add more common words if needed
+
+        int totalWords = words.length;
+        int uniqueWords = 0;
+        Map<String, Integer> wordFrequency = new HashMap<>();
+        
+        for (String word : words) {
+            word = word.toLowerCase();
+            if (!ignoredWords.contains(word)) {
+                wordFrequency.put(word, wordFrequency.getOrDefault(word, 0) + 1);
+            }
+        }
+
+        uniqueWords = wordFrequency.size();
+        
+        System.out.println("Total words: " + totalWords);
+        System.out.println("Unique words: " + uniqueWords);
+
+        System.out.println("\nWord frequencies:");
+        for (Map.Entry<String, Integer> entry : wordFrequency.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
 
         scanner.close();
     }
@@ -46,11 +69,4 @@ public class wordcount {
         reader.close();
         return content.toString();
     }
-
-    public static int countWords(String text) {
-        String[] words = text.split("[\\s\\p{Punct}]+");
-        return words.length;
-    }
 }
-
-
